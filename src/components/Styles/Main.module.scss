@@ -1,0 +1,26 @@
+.container {
+  background-color: rgb(39, 43, 51);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mainContent {
+  background-color: rgb(245, 245, 245);
+  width: auto;
+  height: auto;
+}
+.title {
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  margin: 0px;
+  border: none;
+  font-weight: 900;
+  z-index: 1;
+  font-size: 5.625rem;
+}
