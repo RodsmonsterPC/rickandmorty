@@ -20,4 +20,8 @@ const getCharacterId = async (id) => {
   }
 };
 
+const Messageerror = (message) => {
+  console.log(message);
+};
+
 export { getCharacters, getCharacterId };

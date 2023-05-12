@@ -7,38 +7,50 @@ import { Link } from "react-router-dom";
 
 function Characters() {
   const [data, setData] = useState([]);
+  const [isLoading, setLoding] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getCharacters().then((data) => {
-      const { results } = data;
-      setData(results);
-    });
+    setLoding(true);
+    getCharacters()
+      .then((data) => {
+        const { results } = data;
+        setData(results);
+        setLoding(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoding(false);
+      });
   }, []);
 
   return (
     <>
-      <div className={styles.mainContent}>
-        <Navbar />
-        <div className={styles.title}>
-          <h1>The Rick and Morty Api</h1>
-        </div>
+      {isLoading && <h1>Loading...</h1>}
+      {!isLoading && error && <h2>Hubo un erro al mostrar los personajes</h2>}
+      {!isLoading && !error && (
+        <div className={styles.mainContent}>
+          <Navbar />
+          <div className={styles.title}>
+            <h1>The Rick and Morty Api</h1>
+          </div>
 
-        <div className={styles.container}>
-          {data.map((info) => (
-            <Link to={`/detail/${info.id}`}>
-              <CardCharacter
-                key={info.id}
-                name={info.name}
-                origin={info.origin}
-                species={info.species}
-                location={info.location}
-                status={info.status}
-                image={info.image}
-              />
-            </Link>
-          ))}
+          <div className={styles.container}>
+            {data.map((info) => (
+              <Link to={`/detail/${info.id}`} key={info.id}>
+                <CardCharacter
+                  name={info.name}
+                  origin={info.origin}
+                  species={info.species}
+                  location={info.location}
+                  status={info.status}
+                  image={info.image}
+                />
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
